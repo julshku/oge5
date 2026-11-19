@@ -1,0 +1,1184 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Thanksgiving Adventure · 40 min lesson 🇺🇸</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800;900&display=swap" rel="stylesheet">
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    font-family: 'Nunito', system-ui, sans-serif;
+    background: linear-gradient(135deg, #fdf2f8 0%, #f5f3ff 50%, #ecfeff 100%);
+    min-height: 100vh;
+    color: #4c1d95;
+    padding: 16px;
+    line-height: 1.5;
+  }
+  .wrap { max-width: 1100px; margin: 0 auto; }
+
+  header {
+    background: linear-gradient(135deg, #fbcfe8, #e9d5ff, #cffafe);
+    border-radius: 28px;
+    padding: 24px 28px;
+    box-shadow: 0 10px 30px rgba(168, 85, 247, 0.15);
+    margin-bottom: 18px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 16px;
+  }
+  h1 {
+    font-size: 26px;
+    font-weight: 900;
+    background: linear-gradient(90deg, #ec4899, #a855f7, #06b6d4);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+  .subtitle { font-size: 14px; color: #7c3aed; font-weight: 600; margin-top: 4px; }
+
+  .timer-box {
+    background: white;
+    border-radius: 20px;
+    padding: 12px 20px;
+    box-shadow: 0 4px 12px rgba(168, 85, 247, 0.12);
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+  #timer {
+    font-size: 32px;
+    font-weight: 900;
+    font-variant-numeric: tabular-nums;
+    color: #ec4899;
+    min-width: 100px;
+    text-align: center;
+  }
+  .timer-btn {
+    background: linear-gradient(135deg, #f472b6, #a855f7);
+    color: white;
+    border: none;
+    border-radius: 12px;
+    padding: 8px 16px;
+    font-family: inherit;
+    font-weight: 700;
+    cursor: pointer;
+    font-size: 14px;
+    transition: transform .15s;
+  }
+  .timer-btn:hover { transform: scale(1.05); }
+  .timer-btn.reset { background: #e9d5ff; color: #7c3aed; }
+
+  nav { display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 18px; }
+  .nav-btn {
+    background: white;
+    border: 2px solid #f3e8ff;
+    border-radius: 16px;
+    padding: 10px 16px;
+    font-family: inherit;
+    font-weight: 700;
+    font-size: 13px;
+    color: #7c3aed;
+    cursor: pointer;
+    transition: all .2s;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+  }
+  .nav-btn:hover { border-color: #fbcfe8; transform: translateY(-2px); }
+  .nav-btn.active {
+    background: linear-gradient(135deg, #fbcfe8, #e9d5ff);
+    border-color: #ec4899;
+    color: #831843;
+    box-shadow: 0 4px 12px rgba(236, 72, 153, 0.2);
+  }
+  .nav-btn .time { font-size: 11px; opacity: .7; }
+
+  .stage { display: none; animation: fadeIn .4s ease; }
+  .stage.active { display: block; }
+  @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+
+  .card {
+    background: white;
+    border-radius: 24px;
+    padding: 24px 28px;
+    box-shadow: 0 8px 24px rgba(168, 85, 247, 0.1);
+    margin-bottom: 16px;
+  }
+  .stage-title {
+    font-size: 22px;
+    font-weight: 900;
+    margin-bottom: 6px;
+    background: linear-gradient(90deg, #ec4899, #a855f7);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+  .stage-hint {
+    font-size: 14px;
+    color: #9333ea;
+    background: #faf5ff;
+    border-left: 4px solid #a855f7;
+    padding: 10px 14px;
+    border-radius: 10px;
+    margin-bottom: 18px;
+    font-weight: 600;
+  }
+  .stage-hint.teacher {
+    background: #fef3c7;
+    border-left-color: #f59e0b;
+    color: #92400e;
+  }
+  .stage-hint.teacher::before { content: '👩‍🏫 '; }
+
+  .goal-list { list-style: none; }
+  .goal-list li {
+    padding: 10px 16px;
+    background: #fdf2f8;
+    border-radius: 14px;
+    margin-bottom: 8px;
+    font-weight: 600;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+  .goal-list li::before { content: '✨'; }
+
+  .groups { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 16px; }
+  .group-card {
+    background: linear-gradient(135deg, #fdf2f8, #faf5ff);
+    border-radius: 22px;
+    padding: 16px;
+    border: 2px solid #fce7f3;
+  }
+  .group-title {
+    font-weight: 800;
+    font-size: 15px;
+    color: #831843;
+    margin-bottom: 12px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  .group-title .num {
+    background: linear-gradient(135deg, #ec4899, #a855f7);
+    color: white;
+    width: 32px; height: 32px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 16px;
+    flex-shrink: 0;
+  }
+  .words-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
+  .flip-card { perspective: 1000px; height: 100px; cursor: pointer; }
+  .flip-inner {
+    position: relative; width: 100%; height: 100%;
+    transition: transform .6s cubic-bezier(.4,.2,.2,1);
+    transform-style: preserve-3d;
+  }
+  .flip-card.flipped .flip-inner { transform: rotateY(180deg); }
+  .flip-front, .flip-back {
+    position: absolute; width: 100%; height: 100%;
+    backface-visibility: hidden;
+    border-radius: 14px;
+    padding: 8px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    font-weight: 700;
+    font-size: 13px;
+    line-height: 1.25;
+  }
+  .flip-front {
+    background: white;
+    color: #4c1d95;
+    border: 2px solid #e9d5ff;
+    box-shadow: 0 2px 6px rgba(168,85,247,.08);
+  }
+  .flip-back {
+    background: linear-gradient(135deg, #fbcfe8, #e9d5ff);
+    color: #831843;
+    transform: rotateY(180deg);
+    font-size: 12.5px;
+  }
+  .flip-emoji { font-size: 20px; margin-bottom: 2px; }
+  .flip-hint { font-size: 10px; opacity: .6; margin-top: 4px; font-weight: 600; }
+
+  .match-board { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+  .match-col { display: flex; flex-direction: column; gap: 8px; }
+  .match-col h3 {
+    font-size: 13px; color: #9333ea; text-align: center;
+    margin-bottom: 4px; font-weight: 800; letter-spacing: .5px;
+  }
+  .match-item {
+    background: white;
+    border: 2px solid #e9d5ff;
+    border-radius: 14px;
+    padding: 10px 14px;
+    font-weight: 700;
+    font-size: 13px;
+    cursor: pointer;
+    transition: all .2s;
+    text-align: center;
+  }
+  .match-item:hover:not(.matched) { border-color: #ec4899; transform: translateY(-2px); }
+  .match-item.selected { background: linear-gradient(135deg, #fbcfe8, #e9d5ff); border-color: #ec4899; }
+  .match-item.matched { background: #d1fae5; border-color: #10b981; color: #065f46; opacity: .7; cursor: default; }
+  .match-item.wrong { background: #fee2e2; border-color: #ef4444; animation: shake .3s; }
+  @keyframes shake {
+    0%, 100% { transform: translateX(0); }
+    25% { transform: translateX(-6px); }
+    75% { transform: translateX(6px); }
+  }
+  .match-progress {
+    text-align: center;
+    font-weight: 800;
+    color: #9333ea;
+    margin-top: 16px;
+    font-size: 15px;
+  }
+
+  .word-bank {
+    display: flex; flex-wrap: wrap; gap: 8px;
+    padding: 14px; background: #fffbeb;
+    border: 2px dashed #fbbf24;
+    border-radius: 16px; margin-bottom: 18px;
+  }
+  .bank-word {
+    background: white;
+    border: 2px solid #fde68a;
+    border-radius: 10px;
+    padding: 6px 12px;
+    font-weight: 700;
+    font-size: 13px;
+    cursor: pointer;
+    transition: all .2s;
+  }
+  .bank-word:hover { background: #fef3c7; }
+  .bank-word.used { opacity: .3; pointer-events: none; }
+  .bank-word.selected { background: #fbbf24; color: white; border-color: #f59e0b; }
+
+  .fill-item {
+    display: flex; align-items: center; flex-wrap: wrap;
+    gap: 8px; padding: 10px 14px;
+    background: #faf5ff; border-radius: 12px;
+    margin-bottom: 8px; font-size: 14px; font-weight: 600;
+  }
+  .fill-item .num-badge {
+    background: #e9d5ff; color: #7c3aed;
+    width: 24px; height: 24px; border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 12px; font-weight: 800; flex-shrink: 0;
+  }
+  .blank {
+    display: inline-block;
+    min-width: 90px;
+    padding: 4px 10px;
+    border-bottom: 2.5px solid #a855f7;
+    background: white;
+    border-radius: 6px 6px 0 0;
+    font-weight: 800;
+    color: #831843;
+    cursor: pointer;
+    text-align: center;
+    transition: all .2s;
+  }
+  .blank:hover { background: #fdf2f8; }
+  .blank.filled { background: linear-gradient(135deg, #fbcfe8, #e9d5ff); }
+  .blank.correct { background: #d1fae5; border-color: #10b981; color: #065f46; }
+  .blank.wrong { background: #fee2e2; border-color: #ef4444; color: #991b1b; }
+
+  .quiz-item {
+    background: #faf5ff;
+    border-radius: 16px;
+    padding: 14px 18px;
+    margin-bottom: 10px;
+  }
+  .quiz-q {
+    font-weight: 800;
+    font-size: 14px;
+    color: #4c1d95;
+    margin-bottom: 10px;
+  }
+  .quiz-q .q-index {
+    background: linear-gradient(135deg, #ec4899, #a855f7);
+    color: white;
+    width: 24px; height: 24px;
+    border-radius: 50%;
+    display: inline-flex;
+    align-items: center; justify-content: center;
+    font-size: 12px;
+    margin-right: 8px;
+  }
+  .quiz-options { display: flex; flex-wrap: wrap; gap: 8px; }
+  .quiz-opt {
+    background: white;
+    border: 2px solid #e9d5ff;
+    border-radius: 12px;
+    padding: 8px 16px;
+    font-family: inherit;
+    font-weight: 700;
+    font-size: 13px;
+    color: #4c1d95;
+    cursor: pointer;
+    transition: all .2s;
+  }
+  .quiz-opt:hover:not(:disabled) { border-color: #ec4899; transform: translateY(-2px); }
+  .quiz-opt.correct { background: #d1fae5; border-color: #10b981; color: #065f46; }
+  .quiz-opt.wrong { background: #fee2e2; border-color: #ef4444; color: #991b1b; }
+  .quiz-opt:disabled { cursor: default; }
+  .quiz-opt.reveal-correct { border-color: #10b981; background: #f0fdf4; color: #065f46; }
+
+  .text-box {
+    background: #faf5ff;
+    border-radius: 16px;
+    padding: 18px 20px;
+    font-size: 14px;
+    line-height: 1.65;
+    color: #4c1d95;
+    max-height: 420px;
+    overflow-y: auto;
+    border: 2px solid #f3e8ff;
+  }
+  .text-box p { margin-bottom: 12px; }
+  .text-box p:last-child { margin-bottom: 0; }
+  .text-box strong { color: #831843; }
+
+  .reveal-box {
+    text-align: center;
+    padding: 30px 20px;
+  }
+  .reveal-box p {
+    font-size: 16px;
+    font-weight: 700;
+    color: #7c3aed;
+    margin-bottom: 16px;
+  }
+
+  .exam-row {
+    display: flex; align-items: center; gap: 12px;
+    padding: 12px 16px;
+    background: #faf5ff;
+    border-radius: 14px;
+    margin-bottom: 10px;
+    flex-wrap: wrap;
+  }
+  .exam-row .q-num {
+    background: linear-gradient(135deg, #ec4899, #a855f7);
+    color: white;
+    width: 30px; height: 30px;
+    border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    font-weight: 800; font-size: 14px;
+    flex-shrink: 0;
+  }
+  .exam-row .q-text { flex: 1; font-weight: 700; font-size: 14px; min-width: 200px; }
+  .exam-row select {
+    padding: 8px 12px;
+    border: 2px solid #e9d5ff;
+    border-radius: 10px;
+    font-family: inherit;
+    font-weight: 800;
+    color: #7c3aed;
+    background: white;
+    font-size: 14px;
+    cursor: pointer;
+    min-width: 70px;
+  }
+  .exam-row select.correct { background: #d1fae5; border-color: #10b981; color: #065f46; }
+  .exam-row select.wrong { background: #fee2e2; border-color: #ef4444; color: #991b1b; }
+
+  .exit-list { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+  .exit-item {
+    display: flex; align-items: center; gap: 8px;
+    background: #faf5ff; border-radius: 12px;
+    padding: 8px 12px;
+  }
+  .exit-item .prompt { font-weight: 700; font-size: 13px; flex: 1; }
+  .exit-item input {
+    width: 120px;
+    padding: 6px 10px;
+    border: 2px solid #e9d5ff;
+    border-radius: 8px;
+    font-family: inherit;
+    font-weight: 700;
+    font-size: 13px;
+    color: #4c1d95;
+    outline: none;
+    transition: all .2s;
+  }
+  .exit-item input:focus { border-color: #ec4899; }
+  .exit-item input.correct { background: #d1fae5; border-color: #10b981; color: #065f46; }
+  .exit-item input.wrong { background: #fee2e2; border-color: #ef4444; color: #991b1b; }
+
+  .btn {
+    background: linear-gradient(135deg, #f472b6, #a855f7);
+    color: white;
+    border: none;
+    border-radius: 14px;
+    padding: 12px 24px;
+    font-family: inherit;
+    font-weight: 800;
+    font-size: 14px;
+    cursor: pointer;
+    transition: all .2s;
+    box-shadow: 0 4px 12px rgba(236, 72, 153, 0.25);
+  }
+  .btn:hover { transform: translateY(-2px); box-shadow: 0 6px 16px rgba(236, 72, 153, 0.35); }
+  .btn:active { transform: translateY(0); }
+  .btn.secondary {
+    background: white;
+    color: #a855f7;
+    border: 2px solid #e9d5ff;
+    box-shadow: none;
+  }
+  .btn.secondary:hover { border-color: #a855f7; }
+  .btn-row { display: flex; gap: 10px; margin-top: 16px; flex-wrap: wrap; }
+
+  .result {
+    margin-top: 16px;
+    padding: 14px 20px;
+    border-radius: 14px;
+    font-weight: 800;
+    text-align: center;
+    font-size: 15px;
+    display: none;
+  }
+  .result.show { display: block; animation: pop .3s; }
+  @keyframes pop { from { transform: scale(.9); opacity: 0; } to { transform: scale(1); opacity: 1; } }
+  .result.good { background: #d1fae5; color: #065f46; }
+  .result.mid { background: #fef3c7; color: #92400e; }
+  .result.bad { background: #fee2e2; color: #991b1b; }
+
+  .next-btn {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    z-index: 100;
+    background: linear-gradient(135deg, #ec4899, #a855f7);
+    color: white;
+    border: none;
+    border-radius: 50px;
+    padding: 14px 24px;
+    font-family: inherit;
+    font-weight: 800;
+    font-size: 15px;
+    cursor: pointer;
+    box-shadow: 0 6px 20px rgba(236, 72, 153, 0.4);
+    transition: all .2s;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  .next-btn:hover { transform: scale(1.05); }
+  .next-btn.hide { display: none; }
+
+  @media (max-width: 640px) {
+    h1 { font-size: 20px; }
+    .timer-box { padding: 8px 14px; }
+    #timer { font-size: 24px; min-width: 80px; }
+    .match-board { grid-template-columns: 1fr; }
+    .words-grid { grid-template-columns: 1fr 1fr; }
+    .exit-list { grid-template-columns: 1fr; }
+    .card { padding: 18px; }
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <header>
+    <div>
+      <h1>🦃 Thanksgiving Adventure</h1>
+      <div class="subtitle">40 minutes · learn the words first, then do the task</div>
+    </div>
+    <div class="timer-box">
+      <div id="timer">40:00</div>
+      <button class="timer-btn" onclick="toggleTimer()">▶ Start</button>
+      <button class="timer-btn reset" onclick="resetTimer()">↺</button>
+    </div>
+  </header>
+
+  <nav id="nav"></nav>
+
+  <!-- STAGE 0 -->
+  <section class="stage active" id="stage-0">
+    <div class="card">
+      <div class="stage-title">🎯 Our plan</div>
+      <div class="stage-hint teacher">Say out loud: "First we learn the words. The text comes later — only when we are ready."</div>
+      <ul class="goal-list">
+        <li>Learn the key words in 6 themed groups</li>
+        <li>Practise them in 3 different games</li>
+        <li>Only then open the real text and do the exam task</li>
+      </ul>
+    </div>
+    <div class="card">
+      <div class="stage-title">🔥 How to play</div>
+      <ul class="goal-list">
+        <li>Tap the cards — they flip over</li>
+        <li>Match pairs, fill in the gaps, do a quick quiz</li>
+        <li>The text is hidden until you finish all the practice</li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- STAGE 1 -->
+  <section class="stage" id="stage-1">
+    <div class="card">
+      <div class="stage-title">📚 Vocabulary: 6 groups</div>
+      <div class="stage-hint">Tap a card to see the translation. First read the English out loud, then check yourself.</div>
+      <div class="groups" id="groups"></div>
+    </div>
+  </section>
+
+  <!-- STAGE 2 -->
+  <section class="stage" id="stage-2">
+    <div class="card">
+      <div class="stage-title">🧩 Find the pair</div>
+      <div class="stage-hint">Tap an English word, then tap its Russian translation. Correct pairs turn green.</div>
+      <div class="match-board">
+        <div class="match-col" id="match-en"><h3>ENGLISH</h3></div>
+        <div class="match-col" id="match-ru"><h3>RUSSIAN</h3></div>
+      </div>
+      <div class="match-progress" id="match-progress">0 / 12 pairs</div>
+      <div class="result" id="match-result"></div>
+      <div class="btn-row"><button class="btn secondary" onclick="resetMatching()">↺ Reset</button></div>
+    </div>
+  </section>
+
+  <!-- STAGE 3 -->
+  <section class="stage" id="stage-3">
+    <div class="card">
+      <div class="stage-title">✏️ Fill in the gaps</div>
+      <div class="stage-hint">Tap a word from the word bank, then tap an empty gap. To swap, tap the gap again to send the old word back.</div>
+      <div class="word-bank" id="word-bank"></div>
+      <div id="fill-items"></div>
+      <div class="result" id="fill-result"></div>
+      <div class="btn-row">
+        <button class="btn" onclick="checkFill()">✓ Check</button>
+        <button class="btn secondary" onclick="resetFill()">↺ Reset</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- STAGE 4 -->
+  <section class="stage" id="stage-4">
+    <div class="card">
+      <div class="stage-title">❓ Quick quiz</div>
+      <div class="stage-hint">Read the definition and choose the word that matches it. This is a vocabulary check — no need to know the text yet.</div>
+      <div id="quiz-items"></div>
+      <div class="result" id="quiz-result"></div>
+      <div class="btn-row"><button class="btn secondary" onclick="resetQuiz()">↺ Reset</button></div>
+    </div>
+  </section>
+
+  <!-- STAGE 5 -->
+  <section class="stage" id="stage-5">
+    <div class="card" id="reveal-intro">
+      <div class="stage-title">📖 The text</div>
+      <div class="stage-hint">You know the words. Now let's put them to work.</div>
+      <div class="reveal-box">
+        <p>👉 Time to read the real text about Thanksgiving and match the questions.</p>
+        <button class="btn" onclick="revealText()">👀 Reveal the text</button>
+      </div>
+    </div>
+
+    <div class="card" id="text-content" style="display:none">
+      <div class="stage-title">🦃 Thanksgiving</div>
+      <div class="stage-hint">Read the text carefully. Pay attention to the key words you have just learned.</div>
+      <div class="text-box">
+        <p><strong>A.</strong> The people of Canada celebrate Thanksgiving Day on the second Monday of October every year. It is celebrated to thank God for the past harvest and pray for the coming year. The United States, however, celebrates Thanksgiving on the fourth Thursday of November every year. The reason behind the difference is geographical: autumn starts earlier in Canada than in the USA.</p>
+        <p><strong>B.</strong> Thanksgiving is the right time to decorate homes. You can add some autumn-coloured pillows to the sofa, light a candle and arrange some yellow or orange flowers in a vase. Special message boards have become very popular recently. As guests arrive for Thanksgiving, let them write what they are thankful for on a paper leaf and pin it up on the board. Paper leaves can be cut from scrapbooks and painted in autumn colours.</p>
+        <p><strong>C.</strong> Lots of Americans cannot imagine Thanksgiving afternoon without watching TV. This tradition began in 1934. The reason was a great match between two football teams – the Detroit Lions and the Chicago Bears. That game turned out to be really exciting. Since that time, matches have been held every year (except the years of World War II) on Thanksgiving Day and have become very popular.</p>
+        <p><strong>D.</strong> Once, President Truman chose a turkey on Thanksgiving Day and sent it back to the farm. That happened in 1947. Since that time it has become a tradition. Nowadays the President selects two turkeys and frees them in front of a large crowd. Then the turkeys are sent to a farm house to let them live in peace.</p>
+        <p><strong>E.</strong> Some people use Thanksgiving Day and the day after to visit their families or friends. Others use this day to go shopping. The Americans call the day after Thanksgiving ‘Black Friday’. It first got its name in 1960 in Philadelphia. Many people visited the city for shopping. It was overcrowded and the local people considered it a bad black day. Nowadays ‘Black Friday’ means the beginning of the Christmas shopping season.</p>
+        <p><strong>F.</strong> In 1863 Sara Hale, an editor and writer, wrote a letter to President Lincoln and advised him to proclaim a national day of Thanksgiving. She selected the last Thursday in November because, as she said, the harvests were finished, the elections were over and people were back from their summer vacations. She even suggested a list of dishes for the traditional holiday menu. President Lincoln liked her idea and declared a national holiday, Thanksgiving Day.</p>
+      </div>
+    </div>
+
+    <div class="card" id="exam-content" style="display:none">
+      <div class="stage-title">🎯 Match questions to paragraphs</div>
+      <div class="stage-hint">Match each question with a paragraph A–F. The option "—" means there is no matching paragraph.</div>
+      <div id="exam-rows"></div>
+      <div class="result" id="exam-result"></div>
+      <div class="btn-row">
+        <button class="btn" onclick="checkExam()">✓ Check</button>
+        <button class="btn secondary" onclick="resetExam()">↺ Reset</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- STAGE 6 -->
+  <section class="stage" id="stage-6">
+    <div class="card">
+      <div class="stage-title">🎫 Exit ticket</div>
+      <div class="stage-hint">Write the translation. Pass mark — 8 out of 10.</div>
+      <div class="exit-list" id="exit-list"></div>
+      <div class="result" id="exit-result"></div>
+      <div class="btn-row">
+        <button class="btn" onclick="checkExit()">✓ Check</button>
+        <button class="btn secondary" onclick="resetExit()">↺ Reset</button>
+      </div>
+    </div>
+  </section>
+
+</div>
+
+<button class="next-btn hide" id="nextBtn" onclick="nextStage()">Next →</button>
+
+<script>
+/* ===================== DATA ===================== */
+const STAGES = [
+  { name: '🎯 Goal', time: '1 min' },
+  { name: '📚 Words', time: '8 min' },
+  { name: '🧩 Pairs', time: '4 min' },
+  { name: '✏️ Fill in', time: '5 min' },
+  { name: '❓ Quiz', time: '4 min' },
+  { name: '📖 Text & Task', time: '12 min' },
+  { name: '🎫 Exit', time: '4 min' },
+];
+
+const GROUPS = [
+  { emoji: '🦃', title: 'Thanksgiving basics · основы', words: [
+    { en: 'Thanksgiving Day', ru: 'День благодарения', emoji: '🦃' },
+    { en: 'celebrate', ru: 'праздновать', emoji: '🎉' },
+    { en: 'harvest', ru: 'урожай', emoji: '🌾' },
+    { en: 'pray', ru: 'молиться', emoji: '🙏' },
+    { en: 'geographical', ru: 'географический', emoji: '🗺️' },
+    { en: 'different dates', ru: 'разные даты', emoji: '📅' },
+  ]},
+  { emoji: '🏈', title: 'Sports & TV · спорт и ТВ', words: [
+    { en: 'sports entertainment', ru: 'спортивное развлечение', emoji: '🏈' },
+    { en: 'match', ru: 'матч', emoji: '⚽' },
+    { en: 'football team', ru: 'футбольная команда', emoji: '🏟️' },
+    { en: 'exciting', ru: 'захватывающий', emoji: '🔥' },
+    { en: 'hold matches', ru: 'проводить матчи', emoji: '📆' },
+  ]},
+  { emoji: '🕯️', title: 'Decorations · украшения', words: [
+    { en: 'decorate', ru: 'украшать', emoji: '🎀' },
+    { en: 'autumn-coloured', ru: 'осеннего цвета', emoji: '🍂' },
+    { en: 'pillow', ru: 'подушка', emoji: '🛋️' },
+    { en: 'candle', ru: 'свеча', emoji: '🕯️' },
+    { en: 'arrange', ru: 'расставлять', emoji: '💐' },
+    { en: 'message board', ru: 'доска для сообщений', emoji: '📌' },
+    { en: 'pin up', ru: 'прикрепить', emoji: '📎' },
+  ]},
+  { emoji: '🦃', title: 'Turkeys & President · индейки', words: [
+    { en: 'turkey', ru: 'индейка', emoji: '🦃' },
+    { en: 'select', ru: 'выбирать', emoji: '👆' },
+    { en: 'free (verb)', ru: 'освобождать', emoji: '🕊️' },
+    { en: 'farm', ru: 'ферма', emoji: '🏡' },
+    { en: 'live in peace', ru: 'жить спокойно', emoji: '☮️' },
+    { en: 'main dish', ru: 'основное блюдо', emoji: '🍽️' },
+  ]},
+  { emoji: '🛍️', title: 'Black Friday · Чёрная пятница', words: [
+    { en: 'shopping', ru: 'шопинг', emoji: '🛍️' },
+    { en: 'overcrowded', ru: 'переполненный', emoji: '👥' },
+    { en: 'Christmas shopping season', ru: 'сезон рождественских покупок', emoji: '🎄' },
+    { en: 'visit family', ru: 'навещать семью', emoji: '👨‍👩‍👧' },
+  ]},
+  { emoji: '📜', title: 'History · история', words: [
+    { en: 'editor', ru: 'редактор', emoji: '📝' },
+    { en: 'advise', ru: 'советовать', emoji: '💬' },
+    { en: 'proclaim', ru: 'провозглашать', emoji: '📢' },
+    { en: 'national holiday', ru: 'национальный праздник', emoji: '🇺🇸' },
+    { en: 'suggest', ru: 'предлагать', emoji: '💡' },
+    { en: 'menu', ru: 'меню', emoji: '📋' },
+    { en: 'declare', ru: 'объявлять', emoji: '📜' },
+    { en: 'elections', ru: 'выборы', emoji: '🗳️' },
+  ]},
+];
+
+const PAIRS = [
+  { en: 'celebrate', ru: 'праздновать' },
+  { en: 'harvest', ru: 'урожай' },
+  { en: 'match', ru: 'матч' },
+  { en: 'decorate', ru: 'украшать' },
+  { en: 'turkey', ru: 'индейка' },
+  { en: 'farm', ru: 'ферма' },
+  { en: 'shopping', ru: 'шопинг' },
+  { en: 'editor', ru: 'редактор' },
+  { en: 'proclaim', ru: 'провозглашать' },
+  { en: 'menu', ru: 'меню' },
+  { en: 'candle', ru: 'свеча' },
+  { en: 'overcrowded', ru: 'переполненный' },
+];
+
+const FILL_BANK = ['celebrate', 'harvest', 'match', 'decorate', 'turkey', 'farm', 'shopping', 'menu'];
+const FILL_ITEMS = [
+  { before: 'People', after: 'Thanksgiving to thank God for the harvest.', answer: 'celebrate' },
+  { before: 'Thanksgiving is celebrated to thank God for the past', after: '.', answer: 'harvest' },
+  { before: 'The great', after: 'between two football teams started the TV tradition.', answer: 'match' },
+  { before: 'You can', after: 'your home with autumn-coloured pillows and candles.', answer: 'decorate' },
+  { before: 'The President chooses a', after: 'and frees it.', answer: 'turkey' },
+  { before: 'The turkeys are sent to a', after: 'to live in peace.', answer: 'farm' },
+  { before: 'Many people go', after: 'on Black Friday.', answer: 'shopping' },
+  { before: 'Sara Hale suggested a list of dishes for the holiday', after: '.', answer: 'menu' },
+];
+
+/* QUIZ — vocabulary meaning only, no text needed */
+const QUIZ = [
+  { q: 'Which word means "to do something special to mark a holiday"?', options: ['celebrate', 'decorate', 'proclaim'], answer: 'celebrate' },
+  { q: 'Which word means "the crops that farmers collect"?', options: ['harvest', 'menu', 'farm'], answer: 'harvest' },
+  { q: 'Which word means "a game between two sports teams"?', options: ['match', 'crowd', 'editor'], answer: 'match' },
+  { q: 'Which word means "to make a place look nice for a special day"?', options: ['decorate', 'celebrate', 'arrange'], answer: 'decorate' },
+  { q: 'Which word means "a large bird traditionally eaten at Thanksgiving"?', options: ['turkey', 'crowd', 'harvest'], answer: 'turkey' },
+  { q: 'Which word means "a place where animals are kept"?', options: ['farm', 'vase', 'board'], answer: 'farm' },
+  { q: 'Which word means "the activity of buying things in shops"?', options: ['shopping', 'proclaim', 'suggest'], answer: 'shopping' },
+  { q: 'Which word means "a person who checks and prepares texts for publishing"?', options: ['editor', 'crowd', 'menu'], answer: 'editor' },
+];
+
+const EXAM = [
+  { q: 1, text: 'What is the favourite sports entertainment on Thanksgiving Day in the USA?', answer: 'C' },
+  { q: 2, text: 'What happens to the turkeys which are chosen by the President?', answer: 'D' },
+  { q: 3, text: 'Why was it decided to celebrate Thanksgiving at the end of November?', answer: 'F' },
+  { q: 4, text: 'How can people make the house ready for the autumn holiday?', answer: 'B' },
+  { q: 5, text: 'Why did the turkey become the main dish for the Thanksgiving dinner?', answer: '—' },
+  { q: 6, text: 'What is the day after Thanksgiving known for?', answer: 'E' },
+  { q: 7, text: 'Why is Thanksgiving celebrated on different dates in different countries?', answer: 'A' },
+];
+
+const EXIT_ITEMS = [
+  { prompt: 'celebrate', answers: ['праздновать'] },
+  { prompt: 'harvest', answers: ['урожай'] },
+  { prompt: 'turkey', answers: ['индейка'] },
+  { prompt: 'farm', answers: ['ферма'] },
+  { prompt: 'shopping', answers: ['шопинг'] },
+  { prompt: 'украшать', answers: ['decorate'] },
+  { prompt: 'редактор', answers: ['editor'] },
+  { prompt: 'провозглашать', answers: ['proclaim'] },
+  { prompt: 'свеча', answers: ['candle'] },
+  { prompt: 'переполненный', answers: ['overcrowded'] },
+];
+
+/* ===================== NAV ===================== */
+let currentStage = 0;
+const navEl = document.getElementById('nav');
+STAGES.forEach((s, i) => {
+  const b = document.createElement('button');
+  b.className = 'nav-btn' + (i === 0 ? ' active' : '');
+  b.innerHTML = `${s.name}<span class="time">${s.time}</span>`;
+  b.onclick = () => goStage(i);
+  navEl.appendChild(b);
+});
+
+function goStage(i) {
+  currentStage = i;
+  document.querySelectorAll('.stage').forEach(s => s.classList.remove('active'));
+  document.getElementById('stage-' + i).classList.add('active');
+  document.querySelectorAll('.nav-btn').forEach((b, idx) => b.classList.toggle('active', idx === i));
+  const nb = document.getElementById('nextBtn');
+  nb.classList.toggle('hide', i === STAGES.length - 1);
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+function nextStage() { if (currentStage < STAGES.length - 1) goStage(currentStage + 1); }
+
+/* ===================== TIMER ===================== */
+let timeLeft = 40 * 60, timerInt = null, running = false;
+const timerEl = document.getElementById('timer');
+function updateTimer() {
+  const m = Math.floor(timeLeft / 60);
+  const s = timeLeft % 60;
+  timerEl.textContent = `${m}:${s.toString().padStart(2, '0')}`;
+  timerEl.style.color = timeLeft < 300 ? '#ef4444' : '#ec4899';
+}
+function toggleTimer() {
+  const btn = document.querySelector('.timer-btn');
+  if (running) {
+    clearInterval(timerInt);
+    running = false;
+    btn.textContent = '▶ Start';
+  } else {
+    running = true;
+    btn.textContent = '⏸ Pause';
+    timerInt = setInterval(() => {
+      if (timeLeft > 0) { timeLeft--; updateTimer(); }
+      else { clearInterval(timerInt); running = false; btn.textContent = '▶ Start'; }
+    }, 1000);
+  }
+}
+function resetTimer() {
+  clearInterval(timerInt);
+  running = false;
+  timeLeft = 40 * 60;
+  updateTimer();
+  document.querySelector('.timer-btn').textContent = '▶ Start';
+}
+updateTimer();
+
+/* ===================== STAGE 1: FLIP CARDS ===================== */
+const groupsEl = document.getElementById('groups');
+GROUPS.forEach(g => {
+  const gCard = document.createElement('div');
+  gCard.className = 'group-card';
+  gCard.innerHTML = `<div class="group-title"><span class="num">${g.emoji}</span>${g.title}</div>`;
+  const grid = document.createElement('div');
+  grid.className = 'words-grid';
+  g.words.forEach(w => {
+    const fc = document.createElement('div');
+    fc.className = 'flip-card';
+    fc.innerHTML = `
+      <div class="flip-inner">
+        <div class="flip-front">
+          <div class="flip-emoji">${w.emoji}</div>
+          <div>${w.en}</div>
+          <div class="flip-hint">tap →</div>
+        </div>
+        <div class="flip-back">
+          <div class="flip-emoji">${w.emoji}</div>
+          <div>${w.ru}</div>
+          <div class="flip-hint">${w.en}</div>
+        </div>
+      </div>`;
+    fc.onclick = () => fc.classList.toggle('flipped');
+    grid.appendChild(fc);
+  });
+  gCard.appendChild(grid);
+  groupsEl.appendChild(gCard);
+});
+
+/* ===================== STAGE 2: MATCHING ===================== */
+const matchEnEl = document.getElementById('match-en');
+const matchRuEl = document.getElementById('match-ru');
+const matchProgEl = document.getElementById('match-progress');
+const matchResultEl = document.getElementById('match-result');
+let selectedEn = null, selectedRu = null, matchedCount = 0;
+
+function shuffle(a) {
+  const arr = [...a];
+  for (let i = arr.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [arr[i], arr[j]] = [arr[j], arr[i]];
+  }
+  return arr;
+}
+
+function initMatching() {
+  matchEnEl.innerHTML = '<h3>ENGLISH</h3>';
+  matchRuEl.innerHTML = '<h3>RUSSIAN</h3>';
+  selectedEn = null; selectedRu = null; matchedCount = 0;
+  matchProgEl.textContent = `0 / ${PAIRS.length} pairs`;
+  matchResultEl.className = 'result';
+  matchResultEl.textContent = '';
+
+  shuffle(PAIRS).forEach(p => {
+    const d = document.createElement('div');
+    d.className = 'match-item';
+    d.textContent = p.en;
+    d.dataset.key = p.en;
+    d.onclick = () => selectMatch(d, 'en');
+    matchEnEl.appendChild(d);
+  });
+  shuffle(PAIRS).forEach(p => {
+    const d = document.createElement('div');
+    d.className = 'match-item';
+    d.textContent = p.ru;
+    d.dataset.key = p.en;
+    d.onclick = () => selectMatch(d, 'ru');
+    matchRuEl.appendChild(d);
+  });
+}
+
+function selectMatch(el, side) {
+  if (el.classList.contains('matched')) return;
+
+  if (side === 'en' && selectedEn === el) {
+    el.classList.remove('selected');
+    selectedEn = null;
+    return;
+  }
+  if (side === 'ru' && selectedRu === el) {
+    el.classList.remove('selected');
+    selectedRu = null;
+    return;
+  }
+
+  if (side === 'en') {
+    if (selectedEn) selectedEn.classList.remove('selected');
+    selectedEn = el;
+  } else {
+    if (selectedRu) selectedRu.classList.remove('selected');
+    selectedRu = el;
+  }
+  el.classList.add('selected');
+
+  if (selectedEn && selectedRu) {
+    if (selectedEn.dataset.key === selectedRu.dataset.key) {
+      const enEl = selectedEn, ruEl = selectedRu;
+      selectedEn = null;
+      selectedRu = null;
+      enEl.classList.remove('selected');
+      ruEl.classList.remove('selected');
+      enEl.classList.add('matched');
+      ruEl.classList.add('matched');
+      matchedCount++;
+      matchProgEl.textContent = `${matchedCount} / ${PAIRS.length} pairs`;
+      if (matchedCount === PAIRS.length) {
+        matchResultEl.className = 'result show good';
+        matchResultEl.textContent = '🎉 All pairs found! Great job!';
+      }
+    } else {
+      const a = selectedEn, b = selectedRu;
+      selectedEn = null;
+      selectedRu = null;
+      a.classList.add('wrong');
+      b.classList.add('wrong');
+      a.classList.remove('selected');
+      b.classList.remove('selected');
+      setTimeout(() => {
+        a.classList.remove('wrong');
+        b.classList.remove('wrong');
+      }, 500);
+    }
+  }
+}
+
+function resetMatching() { initMatching(); }
+initMatching();
+
+/* ===================== STAGE 3: FILL ===================== */
+const bankEl = document.getElementById('word-bank');
+const fillItemsEl = document.getElementById('fill-items');
+const fillResultEl = document.getElementById('fill-result');
+let selectedBankWord = null;
+
+function getBankWord(word) {
+  return [...document.querySelectorAll('.bank-word')].find(b => b.dataset.word === word);
+}
+
+function initFill() {
+  bankEl.innerHTML = '';
+  fillItemsEl.innerHTML = '';
+  fillResultEl.className = 'result';
+  fillResultEl.textContent = '';
+  selectedBankWord = null;
+
+  shuffle(FILL_BANK).forEach(w => {
+    const d = document.createElement('div');
+    d.className = 'bank-word';
+    d.textContent = w;
+    d.dataset.word = w;
+    d.onclick = () => {
+      if (d.classList.contains('used')) return;
+      document.querySelectorAll('.bank-word').forEach(b => b.classList.remove('selected'));
+      d.classList.add('selected');
+      selectedBankWord = d;
+    };
+    bankEl.appendChild(d);
+  });
+
+  FILL_ITEMS.forEach((item, i) => {
+    const row = document.createElement('div');
+    row.className = 'fill-item';
+    row.innerHTML = `
+      <span class="num-badge">${i + 1}</span>
+      <span>${item.before}</span>
+      <span class="blank" data-answer="${item.answer}"></span>
+      <span>${item.after}</span>`;
+    const blank = row.querySelector('.blank');
+    blank.onclick = () => {
+      if (selectedBankWord) {
+        if (blank.dataset.filled) {
+          const oldWord = blank.dataset.filled;
+          const oldBank = getBankWord(oldWord);
+          if (oldBank) oldBank.classList.remove('used');
+        }
+        blank.textContent = selectedBankWord.textContent;
+        blank.classList.add('filled');
+        blank.classList.remove('correct', 'wrong');
+        blank.dataset.filled = selectedBankWord.textContent;
+        selectedBankWord.classList.add('used');
+        selectedBankWord.classList.remove('selected');
+        selectedBankWord = null;
+      } else if (blank.dataset.filled) {
+        const usedWord = blank.dataset.filled;
+        const bankWord = getBankWord(usedWord);
+        if (bankWord) bankWord.classList.remove('used');
+        blank.textContent = '';
+        blank.classList.remove('filled', 'correct', 'wrong');
+        delete blank.dataset.filled;
+      }
+    };
+    fillItemsEl.appendChild(row);
+  });
+}
+
+function checkFill() {
+  let correct = 0;
+  document.querySelectorAll('.fill-item .blank').forEach(b => {
+    b.classList.remove('correct', 'wrong');
+    if (b.dataset.filled === b.dataset.answer) {
+      b.classList.add('correct');
+      correct++;
+    } else if (b.dataset.filled) {
+      b.classList.add('wrong');
+    }
+  });
+  fillResultEl.className = 'result show ' + (correct === 8 ? 'good' : correct >= 5 ? 'mid' : 'bad');
+  fillResultEl.textContent = `Correct: ${correct} out of 8`;
+}
+
+function resetFill() { initFill(); }
+initFill();
+
+/* ===================== STAGE 4: QUIZ ===================== */
+const quizItemsEl = document.getElementById('quiz-items');
+const quizResultEl = document.getElementById('quiz-result');
+let quizScore = 0, quizDone = 0;
+
+function initQuiz() {
+  quizItemsEl.innerHTML = '';
+  quizResultEl.className = 'result';
+  quizResultEl.textContent = '';
+  quizScore = 0; quizDone = 0;
+
+  QUIZ.forEach((item, i) => {
+    const card = document.createElement('div');
+    card.className = 'quiz-item';
+    card.innerHTML = `<div class="quiz-q"><span class="q-index">${i + 1}</span>${item.q}</div>`;
+    const opts = document.createElement('div');
+    opts.className = 'quiz-options';
+    shuffle(item.options).forEach(opt => {
+      const b = document.createElement('button');
+      b.className = 'quiz-opt';
+      b.textContent = opt;
+      b.onclick = () => {
+        if (card.dataset.done) return;
+        card.dataset.done = '1';
+        quizDone++;
+        if (opt === item.answer) {
+          b.classList.add('correct');
+          quizScore++;
+        } else {
+          b.classList.add('wrong');
+          [...opts.children].forEach(c => {
+            if (c.textContent === item.answer) c.classList.add('reveal-correct');
+            c.disabled = true;
+          });
+        }
+        [...opts.children].forEach(c => c.disabled = true);
+        if (quizDone === QUIZ.length) {
+          quizResultEl.className = 'result show ' + (quizScore >= 7 ? 'good' : quizScore >= 5 ? 'mid' : 'bad');
+          quizResultEl.textContent = `Correct: ${quizScore} out of ${QUIZ.length}`;
+        }
+      };
+      opts.appendChild(b);
+    });
+    card.appendChild(opts);
+    quizItemsEl.appendChild(card);
+  });
+}
+
+function resetQuiz() { initQuiz(); }
+initQuiz();
+
+/* ===================== STAGE 5: TEXT + EXAM ===================== */
+function revealText() {
+  document.getElementById('reveal-intro').style.display = 'none';
+  document.getElementById('text-content').style.display = 'block';
+  document.getElementById('exam-content').style.display = 'block';
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+
+const examRowsEl = document.getElementById('exam-rows');
+const examResultEl = document.getElementById('exam-result');
+
+function initExam() {
+  examRowsEl.innerHTML = '';
+  examResultEl.className = 'result';
+  examResultEl.textContent = '';
+
+  EXAM.forEach(item => {
+    const row = document.createElement('div');
+    row.className = 'exam-row';
+    row.innerHTML = `
+      <span class="q-num">${item.q}</span>
+      <span class="q-text">${item.text}</span>`;
+    const sel = document.createElement('select');
+    ['', 'A', 'B', 'C', 'D', 'E', 'F', '—'].forEach(opt => {
+      const o = document.createElement('option');
+      o.value = opt;
+      o.textContent = opt || '—';
+      sel.appendChild(o);
+    });
+    sel.dataset.answer = item.answer;
+    row.appendChild(sel);
+    examRowsEl.appendChild(row);
+  });
+}
+
+function checkExam() {
+  let correct = 0;
+  document.querySelectorAll('.exam-row select').forEach(sel => {
+    sel.classList.remove('correct', 'wrong');
+    if (!sel.value) return;
+    if (sel.value === sel.dataset.answer) {
+      sel.classList.add('correct');
+      correct++;
+    } else {
+      sel.classList.add('wrong');
+    }
+  });
+  examResultEl.className = 'result show ' + (correct === 7 ? 'good' : correct >= 5 ? 'mid' : 'bad');
+  examResultEl.textContent = `Correct: ${correct} out of 7`;
+}
+
+function resetExam() { initExam(); }
+initExam();
+
+/* ===================== STAGE 6: EXIT ===================== */
+const exitListEl = document.getElementById('exit-list');
+const exitResultEl = document.getElementById('exit-result');
+
+function initExit() {
+  exitListEl.innerHTML = '';
+  exitResultEl.className = 'result';
+  exitResultEl.textContent = '';
+  EXIT_ITEMS.forEach((item, i) => {
+    const row = document.createElement('div');
+    row.className = 'exit-item';
+    row.innerHTML = `<span class="prompt">${i + 1}. ${item.prompt}</span>`;
+    const inp = document.createElement('input');
+    inp.type = 'text';
+    inp.placeholder = '...';
+    inp.dataset.answers = JSON.stringify(item.answers);
+    row.appendChild(inp);
+    exitListEl.appendChild(row);
+  });
+}
+
+function checkExit() {
+  let correct = 0;
+  document.querySelectorAll('.exit-item input').forEach(inp => {
+    inp.classList.remove('correct', 'wrong');
+    const answers = JSON.parse(inp.dataset.answers).map(a => a.toLowerCase().trim());
+    const val = inp.value.toLowerCase().trim();
+    if (!val) return;
+    if (answers.includes(val)) {
+      inp.classList.add('correct');
+      correct++;
+    } else {
+      inp.classList.add('wrong');
+    }
+  });
+  exitResultEl.className = 'result show ' + (correct >= 8 ? 'good' : correct >= 5 ? 'mid' : 'bad');
+  exitResultEl.textContent = `Correct: ${correct} out of 10. ${correct >= 8 ? '🎉 Passed! No homework for you.' : '📝 These 10 words are your homework.'}`;
+}
+
+function resetExit() { initExit(); }
+initExit();
+
+</script>
+</body>
+</html>
